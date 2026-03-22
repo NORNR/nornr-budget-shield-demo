@@ -1,0 +1,24 @@
+{
+  "severity": "review-first",
+  "exclude": ["tests/", "docs/", ".github/", ".nornr-pr-audit.json"],
+  "rules": [
+    {
+      "id": "payment-surface",
+      "label": "Payment or checkout surface",
+      "pattern": "stripe|billing|checkout|invoice|payment|transfer",
+      "suggestion": "Put the release path behind one reviewed spend lane before merge so the payment flow keeps owner mandate, approval state and finance packet explicit."
+    },
+    {
+      "id": "vendor-action",
+      "label": "External provider or vendor action",
+      "pattern": "openai|anthropic|perplexity|modal|browser",
+      "suggestion": "Use one spend-aware ingress before merge so the new provider call carries counterparty scope, review posture and defended trail instead of a raw client call."
+    },
+    {
+      "id": "tool-surface",
+      "label": "Tool or MCP surface",
+      "pattern": "create_mcp_tools|list_tools|mcp|tool_call|function_call",
+      "suggestion": "Add one MCP control layer before merge so the tool request becomes intent with review and audit export instead of raw local capability."
+    }
+  ]
+}
